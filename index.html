@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0f1f">
+<title>Link coding smpn 7 bjm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1f;
+    --ink: #e9edfb;
+    --muted: #9aa4c4;
+    --line: rgba(255, 255, 255, .10);
+    --glass: rgba(255, 255, 255, .055);
+    --teal: #2dd4bf;
+    --violet: #a78bfa;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { min-height: 100%; background: var(--bg); }
+  body {
+    min-height: 100vh;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    line-height: 1.5;
+    background:
+      radial-gradient(520px 380px at 8% -8%, rgba(45, 212, 191, .18), transparent 70%),
+      radial-gradient(480px 380px at 100% 2%, rgba(167, 139, 250, .18), transparent 70%),
+      var(--bg);
+    padding: max(32px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom));
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+
+  header { margin-bottom: 28px; }
+  h1 {
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 8vw, 2.9rem);
+    line-height: 1.05;
+    letter-spacing: -.025em;
+  }
+  header p { margin-top: 10px; color: var(--muted); max-width: 40ch; }
+
+  ul { list-style: none; display: grid; gap: 12px; }
+
+  .baris {
+    --acc: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 16px;
+    text-align: left;
+    text-decoration: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: border-color .18s ease, background-color .18s ease;
+  }
+  .baris:hover { border-color: var(--acc); background: rgba(255, 255, 255, .085); }
+  .baris:active { background: rgba(255, 255, 255, .11); }
+  .baris:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+
+  .tile {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    color: var(--acc);
+    background: rgba(255, 255, 255, .08);
+    background: color-mix(in srgb, var(--acc) 16%, transparent);
+  }
+  .teks { flex: 1; min-width: 0; display: grid; gap: 1px; }
+  .teks strong {
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+  .teks span { font-size: .875rem; color: var(--muted); }
+
+  .status { flex: none; display: grid; place-items: center; color: var(--muted); }
+  .baris:hover .status { color: var(--acc); }
+
+  /* Link belum diisi */
+  .baris.kosong { border-style: dashed; }
+  .baris.kosong .tile { color: var(--muted); background: rgba(255, 255, 255, .06); }
+  .pil {
+    font-size: .75rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    transform: translate(-50%, 12px);
+    width: max-content;
+    max-width: calc(100% - 40px);
+    padding: 12px 16px;
+    font-size: .9rem;
+    color: var(--ink);
+    background: #1a2140;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .toast.tampil { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .baris, .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <!-- Ubah judul & keterangan di bawah sesuai selera -->
+    <h1>Link coding smpn 7 bjm</h1>
+    <p>Semua link penting dan belajar App Inventor di satu halaman.</p>
+  </header>
+  <nav aria-label="Daftar link">
+    <ul id="daftar"></ul>
+  </nav>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================
+   ISI LINK DI SINI
+   Tempel link kamu di bagian  url: ""  untuk tiap baris.
+   Contoh:  url: "https://contoh.ac.id/login"
+   Kalau url dikosongkan, baris tampil "Belum diisi".
+   ===================================================== */
+const LINKS = [
+  {
+    judul: "LMS UOB My Digital Space",
+    info: "Kelas, materi, dan tugas kuliah",
+    url: "https://app.uobmydigitalspace.com",
+    ikon: "topi",
+    warna: "#2dd4bf"
+  },
+  {
+    judul: "MIT App Inventor",
+    info: "Buat aplikasi Android lewat browser",
+    url: "https://appinventor.mit.edu",
+    ikon: "blok",
+    warna: "#a78bfa"
+  },
+  {
+    judul: "Unduh MIT AI2 Companion",
+    info: "Aplikasi untuk menjalankan proyek di HP",
+    url: "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://play.google.com/store/apps/details%3Fid%3Dedu.mit.appinventor.aicompanion3%26hl%3Did%26referrer%3Dutm_source%253Dgoogle%2526utm_medium%253Dorganic%2526utm_term%253Dmit%2Bapp%2Binventor%26pcampaignid%3DAPPU_1_0DLKauiSCrqt4-EPoZzFoA8&ved=2ahUKEwjouuPuvK-XAxW61jgGHSFOEfQQ5YQBegQIIxAC&sqi=2&usg=AOvVaw3-H_RwIvYDALN7GlCYINSW",
+    ikon: "unduh",
+    warna: "#38bdf8"
+  },
+  {
+    judul: "LMS Absensi PJJ bapa irfan",
+    info: "Isi kehadiran kuliah jarak jauh",
+    url: "https://fansensei12.github.io/LMSpendidikanpancasila",
+    ikon: "absen",
+    warna: "#4ade80"
+  },
+  {
+    judul: "List  akun belajar.id",
+    info: "Akun dan kata sandi belajar.id",
+    url: "https://docs.google.com/spreadsheets/u/9/d/e/2PACX-1vRR0a1E4aaWH1-NFi97kQlrxJXTV_vOvTSnZdGmXe0hhafibK6bp1FMigdEpJz-jKLEouuqO-WGYvjb/pubhtml",
+    ikon: "kunci",
+    warna: "#f472b6"
+  },
+{
+    judul: "AIA runner",
+    info: "Menjalankan file aia",
+    url: "https://aia-viewer.netlify.app",
+    ikon: "blok",
+    warna: "#2dd4bf"
+  }
+];
+/* ===================== AKHIR BAGIAN ISI LINK ===================== */
+
+const IKON = {
+  topi:  '<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+  blok:  '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/>',
+  unduh: '<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+  absen: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/>',
+  kunci: '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3M14 9l2 2"/>'
+};
+const EXTERNAL = '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>';
+
+const svg = (isi, ukuran) =>
+  `<svg viewBox="0 0 24 24" width="${ukuran}" height="${ukuran}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${isi}</svg>`;
+
+// Tambahkan https:// otomatis kalau lupa menulisnya
+function rapikanUrl(u) {
+  u = (u || "").trim();
+  if (!u) return "";
+  return /^https?:\/\//i.test(u) ? u : "https://" + u;
+}
+
+const toastEl = document.getElementById("toast");
+let toastTimer;
+function toast(pesan) {
+  toastEl.textContent = pesan;
+  toastEl.classList.add("tampil");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove("tampil"), 3200);
+}
+
+const daftar = document.getElementById("daftar");
+
+LINKS.forEach(item => {
+  const url = rapikanUrl(item.url);
+  const li = document.createElement("li");
+  const el = document.createElement(url ? "a" : "button");
+
+  el.className = "baris" + (url ? "" : " kosong");
+  el.style.setProperty("--acc", item.warna);
+
+  if (url) {
+    el.href = url;
+    el.target = "_blank";
+    el.rel = "noopener noreferrer";
+  } else {
+    el.type = "button";
+    el.addEventListener("click", () =>
+      toast(`Link "${item.judul}" belum diisi. Isi di bagian LINKS pada kode.`)
+    );
+  }
+
+  el.innerHTML =
+    `<span class="tile">${svg(IKON[item.ikon] || IKON.blok, 24)}</span>` +
+    `<span class="teks"><strong></strong><span></span></span>` +
+    `<span class="status">${url ? svg(EXTERNAL, 18) : '<span class="pil">Belum diisi</span>'}</span>`;
+
+  el.querySelector("strong").textContent = item.judul;
+  el.querySelector(".teks > span").textContent = item.info;
+
+  li.appendChild(el);
+  daftar.appendChild(li);
+});
+</script>
+</body>
+</html>
